@@ -48,7 +48,7 @@ Pod::Spec.new do |spec|
       spec.ios.vendored_libraries = 'Pod/Products/lib/*.a'
       spec.public_header_files = 'Pod/Products/include/*.h'
   else
-    spec.source_files = "Classes", "Classes/**/*"
+    spec.source_files = "ZFCommonModule/Classes", "ZFCommonModule/Classes/**/*"
   end
   
   # spec.public_header_files = "Classes/**/*.h"
