@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |spec|
   spec.name         = "ZFCommonModule"
-  spec.version      = "0.0.2"
+  spec.version      = "0.0.3"
   spec.summary      = "A short description of ZFCommonModule."
 
   spec.homepage     = "https://github.com/SuperHaiFeng/ZFCommonModule"
@@ -48,25 +48,7 @@ Pod::Spec.new do |spec|
       spec.ios.vendored_libraries = 'Pod/Products/lib/*.a'
       spec.public_header_files = 'Pod/Products/include/*.h'
   else
-    spec.subspec "Decision" do |ss|
-        ss.source_files = "ZFCommonModule/Classes/Decision/*.swift"
-    end
-    
-    spec.subspec "Extension" do |ss|
-      ss.source_files = "ZFCommonModule/Classes/Extension/*.swift"
-    end
-    
-    spec.subspec "Model" do |ss|
-      ss.source_files = "ZFCommonModule/Classes/Model/*.swift"
-    end
-    
-    spec.subspec "Tools" do |ss|
-      ss.source_files = "ZFCommonModule/Classes/Tools/*.swift"
-    end
-    
-    spec.subspec "UI" do |ss|
-      ss.source_files = "ZFCommonModule/Classes/UI/**/*"
-      end
+    spec.source_files = "ZFCommonModule/Classes", "ZFCommonModule/Classes/**/*"
   end
   
   # spec.public_header_files = "Classes/**/*.h"
