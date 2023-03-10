@@ -48,7 +48,25 @@ Pod::Spec.new do |spec|
       spec.ios.vendored_libraries = 'Pod/Products/lib/*.a'
       spec.public_header_files = 'Pod/Products/include/*.h'
   else
-    spec.source_files = "ZFCommonModule/Classes", "ZFCommonModule/Classes/**/*"
+    spec.subspec "Decision" do |ss|
+        ss.source_files = "ZFCommonModule/Classes/Decision/*.swift"
+    end
+    
+    spec.subspec "Extension" do |ss|
+      ss.source_files = "ZFCommonModule/Classes/Extension/*.swift"
+    end
+    
+    spec.subspec "Model" do |ss|
+      ss.source_files = "ZFCommonModule/Classes/Model/*.swift"
+    end
+    
+    spec.subspec "Tools" do |ss|
+      ss.source_files = "ZFCommonModule/Classes/Tools/*.swift"
+    end
+    
+    spec.subspec "UI" do |ss|
+      ss.source_files = "ZFCommonModule/Classes/UI/**/*"
+      end
   end
   
   # spec.public_header_files = "Classes/**/*.h"

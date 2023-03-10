@@ -28,7 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		000C9AD9847E7D11E9E33143 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		000C9AD9847E7D11E9E33143 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* ZFCommonModule_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZFCommonModule_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -45,8 +45,8 @@
 		AAE6DF713BE8219DCDF1F411 /* Pods-ZFCommonModule_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFCommonModule_Example.release.xcconfig"; path = "Target Support Files/Pods-ZFCommonModule_Example/Pods-ZFCommonModule_Example.release.xcconfig"; sourceTree = "<group>"; };
 		CC6BCC20094757E2127E0224 /* Pods-ZFCommonModule_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFCommonModule_Example.debug.xcconfig"; path = "Target Support Files/Pods-ZFCommonModule_Example/Pods-ZFCommonModule_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		D9A87E09EC36D1BDEC264107 /* Pods-ZFCommonModule_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFCommonModule_Tests.release.xcconfig"; path = "Target Support Files/Pods-ZFCommonModule_Tests/Pods-ZFCommonModule_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		E6307B9B6BB700DB834BFCFA /* ZFCommonModule.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = ZFCommonModule.podspec; path = ../ZFCommonModule.podspec; sourceTree = "<group>"; };
-		FF9ED306D9EF8DB314F0C1FD /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		E6307B9B6BB700DB834BFCFA /* ZFCommonModule.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ZFCommonModule.podspec; path = ../ZFCommonModule.podspec; sourceTree = "<group>"; };
+		FF9ED306D9EF8DB314F0C1FD /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,7 +156,6 @@
 				A31087EFBDF0EAD8891849A8 /* Pods-ZFCommonModule_Tests.debug.xcconfig */,
 				D9A87E09EC36D1BDEC264107 /* Pods-ZFCommonModule_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -227,6 +226,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -484,7 +484,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -499,7 +499,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
