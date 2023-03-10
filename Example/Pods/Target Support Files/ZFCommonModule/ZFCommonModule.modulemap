@@ -1,0 +1,6 @@
+framework module ZFCommonModule {
+  umbrella header "ZFCommonModule-umbrella.h"
+
+  export *
+  module * { export * }
+}

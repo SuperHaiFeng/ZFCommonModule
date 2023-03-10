@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '10.0'
+
+target 'ZFCommonModule_Example' do
+  pod 'ZFCommonModule', :path => '../'
+
+  target 'ZFCommonModule_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

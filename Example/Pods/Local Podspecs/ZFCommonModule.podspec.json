@@ -1,0 +1,22 @@
+{
+  "name": "ZFCommonModule",
+  "version": "0.1.0",
+  "summary": "A short description of ZFCommonModule.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/Macoming/ZFCommonModule",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Macoming": "zhangzhifang@hinterstellar.com"
+  },
+  "source": {
+    "git": "https://github.com/Macoming/ZFCommonModule.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "source_files": "ZFCommonModule/Classes/**/*"
+}

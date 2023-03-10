@@ -1,0 +1,16 @@
+PODS:
+  - ZFCommonModule (0.1.0)
+
+DEPENDENCIES:
+  - ZFCommonModule (from `../`)
+
+EXTERNAL SOURCES:
+  ZFCommonModule:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  ZFCommonModule: 85cff23cdfe186076e4e0ae78ba0a61b501d5279
+
+PODFILE CHECKSUM: 66405ce05b6e2ed4aa414b4c4141e026eba93764
+
+COCOAPODS: 1.10.2
