@@ -50,11 +50,34 @@ public struct DialogParams {
     /// 内容容器位置
     var position: contentPosition
     
+    /// 对话框参数
+    /// - Parameters:
+    ///   - contentAnimation: 内容容器动画
+    ///   - animation: dialog背景动画
+    ///   - contentView: 内容容器视图
+    ///   - position: 内容容器位置
     public init(contentAnimation: ViewTransitionsAnimationProtocol, animation: ViewTransitionsAnimationProtocol, contentView: DialogContentDisappear, position: contentPosition) {
         self.contentAnimation = contentAnimation
         self.animation = animation
         self.contentView = contentView
         self.position = position
+    }
+    
+    /// 对话框参数
+    /// - Parameters:
+    ///   - contentAnimation: 内容容器动画
+    ///   - contentView: 内容容器视图
+    ///   - position: 内容容器位置
+    public init(contentAnimation: ViewTransitionsAnimationProtocol, contentView: DialogContentDisappear, position: contentPosition) {
+        self.init(contentAnimation: contentAnimation, animation: LoomAnimation(), contentView: contentView, position: position)
+    }
+    
+    /// 对话框参数
+    /// - Parameters:
+    ///   - contentAnimation: 内容容器动画
+    ///   - contentView: 内容容器视图
+    public init(contentAnimation: ViewTransitionsAnimationProtocol, contentView: DialogContentDisappear) {
+        self.init(contentAnimation: contentAnimation, contentView: contentView, position: .bottom)
     }
 }
 
@@ -90,7 +113,9 @@ public class DialogBackView: UIView {
             let anchFrame = anchView.convert(anchView.bounds, to: UIApplication.shared.keyWindow)
             params.contentView.snp.makeConstraints { make in
                 make.top.equalTo(anchFrame.maxY)
-                if anchFrame.minX < ScreenWidth / 2 {
+                if anchFrame.midX == ScreenWidth / 2 {
+                    make.centerX.equalTo(anchFrame.midX)
+                } else if anchFrame.minX < ScreenWidth / 2 {
                     make.left.equalTo(anchFrame.minX)
                 } else {
                     make.right.equalTo(anchFrame.maxX - ScreenWidth)
@@ -290,7 +315,7 @@ extension DialogBackView {
                     return (containerBeginCenter.y - container.center.y) > container.bounds.height / 2
                 case .bottom:
                     return (container.center.y - containerBeginCenter.y) > container.bounds.height / 2
-                default:
+                case .all:
                     let xDiff = abs(containerBeginCenter.x - container.center.x)
                     let yDiff = abs(containerBeginCenter.y - container.center.y)
                     let disapear = xDiff > container.bounds.width / 2 || yDiff > container.bounds.height / 2

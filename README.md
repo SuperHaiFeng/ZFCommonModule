@@ -7,9 +7,15 @@
 
 ## Example
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+#### UI的函数式创建
 
-## Requirements
+##### 包括（UIView，UIView，UITableView, UICollectionView, UILabel, UITextFiled, UITextView...）
+
+##### 对UIView扩展了一个点击显示背景颜色的协议TouchSelectProtocol 和 点击缩小动画的协议TouchZoomAnimationProtocol
+
+##### 只要继承自UIView的空间，只要实现这两个协议都可以实现动画
+
+##### UIVIew还扩展了一个扩大事件触发区域的协议UIViewModifyTriggerProtocol，实现这个协议，并且在pointIn方法中调用方法就可以扩大触发区域，目前对所有继承自UIView的类都可以使用
 
 ## Installation
 
