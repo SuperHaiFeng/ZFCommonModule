@@ -23,19 +23,29 @@ extension DialogContentDisappear {
 
 /// 内容布局方向
 public enum contentPosition {
+    /// 吸顶布局
     case top
+    /// 中间布局
     case center
+    /// 吸底布局
     case bottom
+    /// 吸左布局
     case left
+    /// 吸右布局
     case right
 }
 
 /// 内容手势消失方向
 public enum PanPosition {
+    /// 向上滑动
     case top
+    /// 向下滑动
     case bottom
+    /// 向左滑动
     case left
+    /// 向右滑动
     case right
+    /// 所有方向都可滑动
     case all
 }
 
@@ -210,6 +220,8 @@ public class DialogBackView: UIView {
     private var containerPanDissmissPosition: PanPosition = .bottom
     private var containerPanDissmissEnabled: Bool = false
     private var containerBeginCenter: CGPoint = .zero
+    // 是否震动过
+    private var isImpacted: Bool = false
 }
 
 /// =**********************************************************  pan手势dismiss设置
@@ -220,8 +232,8 @@ extension DialogBackView {
     
     /// pandismiss手势方向
     @discardableResult
-    public func panDismiss(enabled: Bool, position: PanPosition = .bottom) -> Self {
-        self.containerPanDissmissPosition = position
+    public func panDismiss(enabled: Bool, panPosition: PanPosition = .bottom) -> Self {
+        self.containerPanDissmissPosition = panPosition
         self.containerPanDissmissEnabled = enabled
         if enabled {
             addPanGestureToContainer()
@@ -245,12 +257,7 @@ extension DialogBackView {
             case .began:
                 containerBeginCenter = container.center
             case .changed:
-                let transPoint = ges.translation(in: container)
-                let curCenter = transChangeCenter(transPoint: transPoint)
-                container.center =  curCenter
-                ges.setTranslation(.zero, in: container)
-                container.viewWillDisappear(disappear: panCanDisapear)
-                break
+                self.panChanged(ges: ges)
             case .ended:
                 self.panEnded(ges: ges)
             default: break
@@ -276,18 +283,45 @@ extension DialogBackView {
         }
     }
     
+    
+    /// 滑动改变
+    private func panChanged(ges: UIPanGestureRecognizer) {
+        let transPoint = ges.translation(in: container)
+        let curCenter = transChangeCenter(transPoint: transPoint)
+        container.center =  curCenter
+        ges.setTranslation(.zero, in: container)
+        container.viewWillDisappear(disappear: panCanDisapear)
+        if panCanDisapear {
+            if !isImpacted {
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                isImpacted = true
+            }
+        } else {
+            isImpacted = false
+        }
+    }
+    
     /// 滑动结束
     private func panEnded(ges: UIPanGestureRecognizer) {
         if panCanDisapear {
             container.disappear.call(true)
         } else {
             let velocity = ges.velocity(in: container)
-            if abs(velocity.y) > 800 {
+            var overspeed: Bool = false
+            switch containerPanDissmissPosition {
+                case .top: overspeed = velocity.y < -800
+                case .bottom: overspeed = velocity.y > 800
+                case .left: overspeed = velocity.x < -800
+                case .right: overspeed = velocity.x > 800
+                case .all: overspeed = abs(velocity.x) > 800 || abs(velocity.y) > 800
+            }
+            if overspeed {
                 container.disappear.call(true)
             } else {
                 UIView.animate(withDuration: 0.3) {
                     self.container.center = self.containerBeginCenter
                 }
+                isImpacted = false
             }
         }
     }
@@ -308,17 +342,17 @@ extension DialogBackView {
         get {
             switch containerPanDissmissPosition {
                 case .left:
-                    return (containerBeginCenter.x - container.center.x) > container.bounds.width / 2
+                    return (containerBeginCenter.x - container.center.x) > container.bounds.width / 4
                 case .right:
-                    return (container.center.x - containerBeginCenter.x) > container.bounds.width / 2
+                    return (container.center.x - containerBeginCenter.x) > container.bounds.width / 4
                 case .top:
-                    return (containerBeginCenter.y - container.center.y) > container.bounds.height / 2
+                    return (containerBeginCenter.y - container.center.y) > container.bounds.height / 4
                 case .bottom:
-                    return (container.center.y - containerBeginCenter.y) > container.bounds.height / 2
+                    return (container.center.y - containerBeginCenter.y) > container.bounds.height / 4
                 case .all:
                     let xDiff = abs(containerBeginCenter.x - container.center.x)
                     let yDiff = abs(containerBeginCenter.y - container.center.y)
-                    let disapear = xDiff > container.bounds.width / 2 || yDiff > container.bounds.height / 2
+                    let disapear = xDiff > container.bounds.width / 4 || yDiff > container.bounds.height / 4
                     return disapear
             }
         }

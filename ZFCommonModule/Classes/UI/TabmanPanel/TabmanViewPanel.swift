@@ -46,7 +46,7 @@ open class TabmanViewPanel: PageboyContainer, TMBarDelegate, TMBarDataSource, Pa
         super.init(frame: CGRect.zero)
     }
     
-    init(barItems: [TMBarItemable]) {
+    public init(barItems: [TMBarItemable]) {
         super.init(frame: CGRect.zero)
         self.barItems = barItems
         loadSubviews()
@@ -80,7 +80,6 @@ open class TabmanViewPanel: PageboyContainer, TMBarDelegate, TMBarDataSource, Pa
     /// 默认图片bar，如需修改需要重写此方法
     public func loadBar() {
         pageBar = ImageBar()
-        pageBar?.delegate = self
         pageBar?.layout.contentInset = UIEdgeInsets.zero
         pageBar?.layout.contentMode = .intrinsic
         pageBar?.layout.interButtonSpacing = 0

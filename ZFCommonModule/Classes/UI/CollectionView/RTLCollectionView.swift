@@ -16,7 +16,7 @@ open class RTLCollectionView: UICollectionView {
     override public init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
 //        if CommonMethods.isRTLLayout() {
-            self.semanticContentAttribute = UISemanticContentAttribute.forceRightToLeft
+//            self.semanticContentAttribute = UISemanticContentAttribute.forceRightToLeft
 //        }
     }
 }

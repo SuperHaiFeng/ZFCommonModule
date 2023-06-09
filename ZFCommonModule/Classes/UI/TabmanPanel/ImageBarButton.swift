@@ -46,8 +46,8 @@ public class ImageBarButton: TMBarButton {
     }
 }
 
-class ImageBarItem: TMBarItemable {
-    var selectedImage: UIImage? {
+public class ImageBarItem: TMBarItemable {
+    public var selectedImage: UIImage? {
         didSet {
             setNeedsUpdate()
         }
@@ -70,7 +70,7 @@ class ImageBarItem: TMBarItemable {
         }
     }
     
-    convenience init(nor imgName: String, sel selectImage: String) {
+    public convenience init(nor imgName: String, sel selectImage: String) {
         self.init()
         self.image = UIImage(named: imgName)
         self.selectedImage = UIImage(named: selectImage)
