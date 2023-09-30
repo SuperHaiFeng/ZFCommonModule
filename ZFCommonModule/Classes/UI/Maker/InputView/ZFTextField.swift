@@ -142,4 +142,16 @@ extension ZFTextField {
         self.clearsOnInsertion = value
         return self
     }
+    
+    @discardableResult
+    public func keyboardType(_ type: UIKeyboardType) -> Self {
+        self.keyboardType = type
+        return self
+    }
+    
+    @discardableResult
+    public func isSecureTextEntry(_ value: Bool) -> Self {
+        self.isSecureTextEntry = value
+        return self
+    }
 }

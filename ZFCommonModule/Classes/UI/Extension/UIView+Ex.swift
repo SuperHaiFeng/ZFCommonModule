@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import SnapKit
 
-extension UIView {
-    public func addCorners(bounds: CGRect, cornerRadii:CornerRadii){
+public extension UIView {
+    func addCorners(bounds: CGRect, cornerRadii:CornerRadii){
        let path = createPathWithRoundedRect(bounds: bounds, cornerRadii:cornerRadii)
        let shapLayer = CAShapeLayer()
        shapLayer.frame = self.bounds
@@ -16,7 +17,7 @@ extension UIView {
        self.layer.mask = shapLayer
     }
     
-    public struct CornerRadii {
+    struct CornerRadii {
         public var topLeft :CGFloat = 0
         public var topRight :CGFloat = 0
         public var bottomLeft :CGFloat = 0
@@ -63,7 +64,7 @@ extension UIView {
     }
 }
 
-extension UIView {
+public extension UIView {
     func addShadow(color: UIColor, offset: CGSize = .zero, radius: CGFloat = 3, opacity: Float = 0.15, scale: Bool = true) {
         if self.backgroundColor == .clear {
             self.backgroundColor = .white
@@ -77,6 +78,15 @@ extension UIView {
 //        self.layer.shadowPath = UIBezierPath(rect: bounds).cgPath
         self.layer.shouldRasterize = true
         self.layer.rasterizationScale = scale ? UIScreen.main.scale : 1
+    }
+    
+    func addSubviews(_ views: [UIView]) {
+        views.forEach({ self.addSubview($0) })
+    }
+    
+    func addSubview(_ view: UIView, _ closure: (_ make: ConstraintMaker) -> Void) {
+        self.addSubview(view)
+        view.snp.makeConstraints(closure)
     }
 }
 

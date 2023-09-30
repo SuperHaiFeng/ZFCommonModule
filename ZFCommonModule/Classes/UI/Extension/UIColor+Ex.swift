@@ -75,4 +75,11 @@ public extension UIColor {
     class func customColor(red: Int, green: Int, blue: Int, alpha: CGFloat) -> UIColor {
         return UIColor.init(red: CGFloat(red)/255.0, green: CGFloat(green)/255.0, blue: CGFloat(blue)/255.0, alpha: alpha)
     }
+    
+    // 计算稍微变浅的颜色 factor越大颜色越浅
+    func lighterColor(factor: CGFloat = 0.65) -> UIColor {
+        var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
+        self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        return UIColor(red: min(red + factor, 1.0), green: min(green + factor, 1.0), blue: min(blue + factor, 1.0), alpha: alpha)
+    }
 }

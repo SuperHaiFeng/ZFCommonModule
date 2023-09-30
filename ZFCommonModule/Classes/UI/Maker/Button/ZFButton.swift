@@ -14,7 +14,7 @@ public enum DirectionPlacement {
     case treading
 }
 
-public class ZFButton: UIButton, UIViewModifyTriggerProtocol, TouchZoomAnimationProtocol, TouchColorProtocol {
+open class ZFButton: UIButton, UIViewModifyTriggerProtocol, TouchZoomAnimationProtocol, TouchColorProtocol {
     public var touchAnimation: TouchColorAnimation?
     
     public var touchColorItem: TouchColorItem?
@@ -48,7 +48,7 @@ public class ZFButton: UIButton, UIViewModifyTriggerProtocol, TouchZoomAnimation
     public convenience init(buttonType: UIButton.ButtonType) {
         self.init(type: buttonType)
         if #available(iOS 15.0, *) {
-            self.configuration = UIButton.Configuration.filled()
+//            self.configuration = UIButton.Configuration.filled()
         }
     }
     
