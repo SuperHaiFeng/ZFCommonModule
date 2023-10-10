@@ -42,8 +42,8 @@ open class MRCollectionRefreshController : UIViewController, UICollectionViewDel
     
     // MARK: - Override
     
-    private var _isHeadRefreshSupported = true
-    private var _isFootRefreshSupported = true
+    private var _isHeadRefreshSupported = false
+    private var _isFootRefreshSupported = false
     
     public init(layout: ZFCollectionFlowLayout? = nil, repo: TableViewDataRepository? = nil) {
         super.init(nibName: nil, bundle: nil)
@@ -73,6 +73,10 @@ open class MRCollectionRefreshController : UIViewController, UICollectionViewDel
         let width = (UIScreen.main.bounds.width - layout.minimumLineSpacing * 3) / 2
         layout.size(CGSize(width: width, height: width * 240 / 168))
         return layout
+    }
+    
+    public var flowlayout: UICollectionViewFlowLayout? {
+        (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)
     }
     
     open override func viewDidLoad() {

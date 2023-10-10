@@ -9,7 +9,7 @@ import Foundation
 
 public extension UIColor {
     
-    convenience init(hex string: String, alpha: CGFloat) {
+    convenience init(hex string: String, alpha: CGFloat = 1) {
         var hex = string.hasPrefix("#")
             ? String(string.dropFirst())
             : string
