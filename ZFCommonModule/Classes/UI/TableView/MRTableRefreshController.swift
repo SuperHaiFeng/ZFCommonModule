@@ -61,8 +61,8 @@ open class MRTableRefreshController: UIViewController, UITableViewDelegate, UITa
     /// 页面启动时自动下拉刷新
     public var autoRefresh: Bool = true
     
-    private var _isHeadRefreshSupported = true
-    private var _isFootRefreshSupported = true
+    private var _isHeadRefreshSupported = false
+    private var _isFootRefreshSupported = false
     
     /// 是否可以预加载，默认为false
     public var isCanPreload: Bool = false
@@ -83,8 +83,6 @@ open class MRTableRefreshController: UIViewController, UITableViewDelegate, UITa
     }
     
     open override func viewDidLoad() {
-        self.isHeadRefreshSupported = true
-        self.isFootRefreshSupported = true
         super.viewDidLoad()
         self.view.addSubview(self.tableView!)
         self.tableView?.snp.makeConstraints { (make) in

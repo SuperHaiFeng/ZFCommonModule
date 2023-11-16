@@ -29,6 +29,8 @@ open class TabmanViewPanel: PageboyContainer, TMBarDelegate, TMBarDataSource, Pa
     
     /// tabman数据源
     private var barItems: [TMBarItemable] = []
+    /// tabman容器
+    private var barContainers: [PageboyContainer] = []
     
     public var barItemables: [TMBarItemable] {
         barItems
@@ -49,6 +51,13 @@ open class TabmanViewPanel: PageboyContainer, TMBarDelegate, TMBarDataSource, Pa
     public init(barItems: [TMBarItemable]) {
         super.init(frame: CGRect.zero)
         self.barItems = barItems
+        loadSubviews()
+    }
+    
+    public init(baritems: [TMBarItemable], barContainers: [PageboyContainer]) {
+        super.init(frame: CGRect.zero)
+        self.barItems = baritems
+        self.barContainers = barContainers
         loadSubviews()
     }
     
@@ -133,9 +142,12 @@ open class TabmanViewPanel: PageboyContainer, TMBarDelegate, TMBarDataSource, Pa
     /// - Parameter index: 下标
     /// - Returns: 返回基于UIView的视图，这个方法必须重写，不然会返回默认空视图
     open func pageboyView(for index: Int) -> PageboyContainer {
-        let view = PageboyContainer()
-        view.backgroundColor = UIColor.randomColor()
-        return view
+        guard let barContainer = self.barContainers[safe: index] else {
+            let view = PageboyContainer()
+            view.backgroundColor = UIColor.randomColor()
+            return view
+        }
+        return barContainer
     }
     
     func pageboyNumberOfItems() -> Int {

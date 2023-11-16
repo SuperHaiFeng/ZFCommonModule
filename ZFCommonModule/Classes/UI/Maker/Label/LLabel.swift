@@ -43,7 +43,7 @@ func getFontWeight(_ weight: FontWeight) -> UIFont.Weight {
     }
 }
 
-public class LLabel: UILabel, TouchZoomAnimationProtocol, TouchColorProtocol, UIViewModifyTriggerProtocol {
+open class LLabel: UILabel, TouchZoomAnimationProtocol, TouchColorProtocol, UIViewModifyTriggerProtocol {
     public var touchAnimation: TouchColorAnimation?
     
     // 设置边距
@@ -79,7 +79,7 @@ public class LLabel: UILabel, TouchZoomAnimationProtocol, TouchColorProtocol, UI
         textAlignment = alignment
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
@@ -103,11 +103,11 @@ public class LLabel: UILabel, TouchZoomAnimationProtocol, TouchColorProtocol, UI
         set { paddingEdge.bottom = newValue }
     }
 
-    public override func drawText(in rect: CGRect) {
+    open override func drawText(in rect: CGRect) {
         super.drawText(in: rect.inset(by: paddingEdge))
     }
 
-    public override func textRect(forBounds bounds: CGRect, limitedToNumberOfLines numberOfLines: Int) -> CGRect {
+    open override func textRect(forBounds bounds: CGRect, limitedToNumberOfLines numberOfLines: Int) -> CGRect {
         let insets = paddingEdge
         var rect = super.textRect(forBounds: bounds.inset(by: insets), limitedToNumberOfLines: numberOfLines)
         rect.origin.x -= insets.left
@@ -141,7 +141,7 @@ public class LLabel: UILabel, TouchZoomAnimationProtocol, TouchColorProtocol, UI
         colorTouchesCancelled(touches, with: event)
     }
     
-    public override func draw(_ rect: CGRect) {
+    open override func draw(_ rect: CGRect) {
         super.draw(rect)
         if gradientColors.count > 1 {
             drawGradientText(rect: rect)
@@ -284,6 +284,18 @@ extension LLabel {
     @discardableResult
     public func lineBreakMode(_ mode: NSLineBreakMode) -> Self {
         self.lineBreakMode = mode
+        return self
+    }
+    
+    @discardableResult
+    public func shadowColor(shadowColor: UIColor) -> Self {
+        self.shadowColor = shadowColor
+        return self
+    }
+    
+    @discardableResult
+    public func shadowOffset(shadowOffset: CGSize) -> Self {
+        self.shadowOffset = shadowOffset
         return self
     }
 }

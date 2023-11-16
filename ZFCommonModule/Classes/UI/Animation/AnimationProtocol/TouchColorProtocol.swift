@@ -84,6 +84,7 @@ extension TouchColorProtocol {
 // MARK: 设置属性
 extension TouchColorProtocol {
     /// 是否打开选择背景视图
+    @discardableResult
     public func touchColor(_ item: TouchColorItem, _ animation: TouchColorAnimation) -> Self {
         self.touchColorItem = item
         self.touchAnimation = animation

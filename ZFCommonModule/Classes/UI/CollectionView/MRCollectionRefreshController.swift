@@ -8,9 +8,11 @@
 import MJRefresh
 import UIKit
 import SnapKit
+import RxSwift
 
 /// CollectionView Controller
 open class MRCollectionRefreshController : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    public let disposeBag = DisposeBag()
     
     public var collectionView: ZFCollectionView!
     public var datas: [CellModelProtocol] = []
