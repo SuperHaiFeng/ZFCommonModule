@@ -28,7 +28,7 @@ pod 'ZFCommonModule'
 
 ## Author
 
-Macoming, zhangzhifang@hinterstellar.com
+Yalda, zhangzhifang1013@gmail.com
 
 ## License
 
