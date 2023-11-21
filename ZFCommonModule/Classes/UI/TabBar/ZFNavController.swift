@@ -57,6 +57,7 @@ open class ZFNavController: UINavigationController, UINavigationControllerDelega
             navigationBar.shadowImage = UIImage()
             navigationBar.titleTextAttributes = [.font: UIFont.boldSystemFont(ofSize: 16), .foregroundColor: UIColor.black]
         }
+        self.navigationBar.tintColor = .black
     }
     
     public func makeNavigationBarTransparent() {

@@ -92,7 +92,7 @@ public struct DialogParams {
 }
 
 /// 对话框背景视图
-public class DialogBackView: UIView {
+public class DialogBackView: UIView, UIGestureRecognizerDelegate {
     public let disposeBag = DisposeBag()
     private let params: DialogParams
     
@@ -161,10 +161,14 @@ public class DialogBackView: UIView {
     /// 绑定事件
     private func bindEvent() {
         // 点击背景事件
-        self.rx.click.subscribe { [weak self] _ in
-            guard let self = self else { return }
-            self.disappearAnimation()
-        }.disposed(by: disposeBag)
+//        self.rx.click.subscribe { [weak self] _ in
+//            guard let self = self else { return }
+//            self.disappearAnimation()
+//        }.disposed(by: disposeBag)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(disappearAnimation))
+        tap.delegate = self
+        self.addGestureRecognizer(tap)
         
         params.contentView.disappear.delegate(on: self) { (self, disa) in
             if disa {
@@ -197,7 +201,7 @@ public class DialogBackView: UIView {
     }
             
     /// 消失动画执行
-    public func disappearAnimation() {
+    @objc public func disappearAnimation() {
         params.animation.disappearAnimation(target: self)
         params.contentAnimation.disappearAnimation(target: params.contentView)
     }
@@ -206,6 +210,13 @@ public class DialogBackView: UIView {
     private func disappear() {
         params.contentView.removeFromSuperview()
         self.removeFromSuperview()
+    }
+    
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if gestureRecognizer is UITapGestureRecognizer, let touchView = touch.view, touchView.isDescendant(of: params.contentView) {
+            return false
+        }
+        return true
     }
     
     deinit {

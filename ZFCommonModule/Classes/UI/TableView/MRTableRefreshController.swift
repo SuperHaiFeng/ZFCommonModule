@@ -32,12 +32,14 @@ open class MRTableRefreshController: UIViewController, UITableViewDelegate, UITa
             if self.datas.count == 0 {
                 self.showNoDataTipView()
             } else {
-//                self.hideNoDataTipView()
+                self.hideNoDataTipView()
             }
         }
     }
     // table view的数据仓库, 用于从服务器端获取数据
     public var dataSetRepo: TableViewDataRepository?
+    
+    public var emptyView: UIView = EmptyView()
     
     public var isHeadRefreshSupported: Bool {
         get {
@@ -107,7 +109,7 @@ open class MRTableRefreshController: UIViewController, UITableViewDelegate, UITa
     open func pullDownToRefresh() -> Void {
         tableView?.mj_header?.endRefreshing()
         tableView?.mj_footer?.endRefreshing()
-//        self.hideNoDataTipView()
+        self.hideNoDataTipView()
         self.dataSetRepo?.fetchData(callback: { [weak self] (newData) in
             self?.onFetchedDataSet(dataSet: newData)
         }) { [weak self] in
@@ -298,7 +300,7 @@ open class MRTableRefreshController: UIViewController, UITableViewDelegate, UITa
     private func updateFootRefreshState() -> Void {
         if _isFootRefreshSupported {
             if self.tableView?.mj_footer == nil {
-                MJRefreshAutoFooter { [weak self] in
+                MJRefreshBackStateFooter { [weak self] in
                     self?.pullUpToRefresh()
                 }.autoChangeTransparency(true)
                     .link(to: tableView)
@@ -310,10 +312,14 @@ open class MRTableRefreshController: UIViewController, UITableViewDelegate, UITa
     
     open func checkNoData() {
         if self.datas.count > 0 {
-//            self.hideNoDataTipView()
+            self.hideNoDataTipView()
         } else {
             self.showNoDataTipView()
         }
+    }
+    
+    open func hideNoDataTipView() {
+        self.emptyView.removeFromSuperview()
     }
     
     //MARK: - NoDataTip
@@ -322,8 +328,12 @@ open class MRTableRefreshController: UIViewController, UITableViewDelegate, UITa
             return
         }
         if self.tableView != nil {
-//            NoDataTipView.show(tipView: self.noDataTipView, in: self.tableView!)
-//            super.showNoDataTipView()
+            if self.emptyView.superview == nil {
+                self.tableView.addSubview(emptyView) { make in
+                    make.center.equalToSuperview()
+                    make.size.equalTo(CGSize(width: ScreenWidth, height: ScreenHeight))
+                }
+            }
         }
     }
     
@@ -369,4 +379,26 @@ open class MRTableRefreshController: UIViewController, UITableViewDelegate, UITa
             }
         }
     }
+}
+
+class EmptyView: UIView {
+    private let imageView = UIImageView(image: UIImage(named: "empty"))
+    
+    init() {
+        super.init(frame: CGRect.zero)
+        loadSubviews()
+        imageView.contentMode = .scaleAspectFit
+    }
+    
+    public func loadSubviews() {
+        self.addSubview(imageView) { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(self.snp.width).multipliedBy(0.3)
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }
