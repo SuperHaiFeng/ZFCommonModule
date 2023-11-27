@@ -90,12 +90,6 @@ extension ZFTextField {
     }
     
     @discardableResult
-    public func attributedPlaceholder(_ attr: NSAttributedString) -> Self {
-        self.attributedPlaceholder = attr
-        return self
-    }
-    
-    @discardableResult
     public func clearsOnBeginEditing(_ value: Bool) -> Self {
         self.clearsOnBeginEditing = value
         return self

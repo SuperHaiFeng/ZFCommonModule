@@ -19,18 +19,20 @@ public struct UserDefault<T> {
     
     let key: String
     let defaultValue: T
+    let defaults: UserDefaults?
     
-    public init(_ key: String, defaultValue: T) {
+    public init(_ key: String, defaultValue: T, defaults: UserDefaults? = UserDefaults.standard) {
         self.key = key
         self.defaultValue = defaultValue
+        self.defaults = defaults
     }
     
     public var wrappedValue: T {
         get {
-            return UserDefaults.standard.object(forKey: key) as? T ?? defaultValue
+            return defaults?.object(forKey: key) as? T ?? defaultValue
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: key)
+            defaults?.set(newValue, forKey: key)
         }
     }
 }

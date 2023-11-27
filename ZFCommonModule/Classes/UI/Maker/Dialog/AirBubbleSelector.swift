@@ -11,11 +11,13 @@ import UIKit
 public struct BubbleItem {
     // 气泡显示的内容
     public var title: String
+    public var image: String
     // 点击气泡回调事件
     public var handle: CommonCallback<Bool>
     
-    public init(title: String, handle: @escaping CommonCallback<Bool>) {
+    public init(title: String, image: String = "", handle: @escaping CommonCallback<Bool>) {
         self.title = title
+        self.image = image
         self.handle = handle
     }
 }
@@ -45,21 +47,33 @@ public class AirBubbleSelector: UIView, DialogContentDisappear {
             make.edges.equalToSuperview()
         }
         items.forEach { item in
+            let touch = TouchCommonView()
+                .touchColor(TouchColorItem(), TouchLommingAnimtionImpl()).backColor(.white).corner(4)
             let itemLabel = makeLabel().text(item.title)
                 .font(.boldSystemFont(ofSize: 16))
-                .paddingEdge(UIEdgeInsets(top: 16, left: 18, bottom: 16, right: 18)).maker()
-                .touchColor(TouchColorItem(), TouchLommingAnimtionImpl())
-            stackView.addArrangedSubview(itemLabel)
+                .paddingEdge(UIEdgeInsets(top: 16, left: item.image.isEmptyRemoveSpaces() ? 14 : 4, bottom: 16, right: 18)).maker()
+            let imageView = UIImageView(image: UIImage(named: item.image))
+            imageView.isHidden = item.image.isEmptyRemoveSpaces()
+            
+            let stack = UIStackView(arrangedSubviews: [imageView, itemLabel])
+            stack.axis = .horizontal
+            stack.distribution = .fill
+            stack.spacing = 0
+            stack.alignment = .center
+            touch.addSubview(stack) { make in
+                make.top.trailing.bottom.equalToSuperview()
+                make.leading.equalTo(4)
+            }
+            
+            stackView.addArrangedSubview(touch)
             itemLabel.snp.makeConstraints { make in
                 make.width.greaterThanOrEqualTo(120)
-                make.leading.equalToSuperview()
-                make.trailing.equalToSuperview()
             }
-            _ = itemLabel.rx.click.subscribe { [weak self] _ in
+            _ = touch.rx.click.subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 item.handle(true)
                 self.disappear.call(true)
-            }
+            })
         }
     }
     
